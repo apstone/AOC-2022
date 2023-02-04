@@ -1,5 +1,5 @@
 import scala.io.Source
-@main def solution: Int = {
+@main def solution: Unit = {
 
   // Read our input file
   val source = Source.fromFile("input.txt")
@@ -8,6 +8,7 @@ import scala.io.Source
     // Get each line of the file, create our empty group, and our max number
     val lines = source.getLines()
     var group = Seq.empty[String]
+    var sums = Seq.empty[Int]
     var maxNumber = Int.MinValue
 
     for (line <- lines) {
@@ -18,6 +19,7 @@ import scala.io.Source
           // Sum group
           val groupSum = group.map(_.toInt).sum
           // Check for new max number
+          sums :+= groupSum
           if (groupSum > maxNumber) {
             maxNumber = groupSum
           }
@@ -30,8 +32,10 @@ import scala.io.Source
       }
     }
 
+    // Answer for part 1
     println(maxNumber)
-    return maxNumber
+    // ANser for part 2
+    println(sums.sorted.takeRight(3).sum)
 
   } finally {
     source.close()
